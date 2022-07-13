@@ -1,0 +1,16 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/assets/fonts/Roboto-Black.ttf": "/assets/fonts/Roboto-Black.ttf",
+    "/assets/fonts/Roboto-Bold.ttf": "/assets/fonts/Roboto-Bold.ttf",
+    "/assets/fonts/Roboto-Italic.ttf": "/assets/fonts/Roboto-Italic.ttf",
+    "/assets/fonts/Roboto-Light.ttf": "/assets/fonts/Roboto-Light.ttf",
+    "/assets/fonts/Roboto-Medium.ttf": "/assets/fonts/Roboto-Medium.ttf",
+    "/assets/fonts/Roboto-Regular.ttf": "/assets/fonts/Roboto-Regular.ttf",
+    "/assets/fonts/Roboto-Thin.ttf": "/assets/fonts/Roboto-Thin.ttf",
+    "/assets/img/close_round.svg": "/assets/img/close_round.svg",
+    "/assets/img/edit.svg": "/assets/img/edit.svg",
+    "/assets/img/expand_down.svg": "/assets/img/expand_down.svg",
+    "/assets/img/logo.svg": "/assets/img/logo.svg",
+    "/assets/img/trash.svg": "/assets/img/trash.svg"
+}
