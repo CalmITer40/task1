@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <div>Это главная страница</div>
+    <div style="padding: 2rem">Добро пожаловать! Войдите в систему, пожалуйста.</div>
 @endsection()

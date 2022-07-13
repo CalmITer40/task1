@@ -7,7 +7,7 @@
         </div>
         <button class="close" data-target="view-product"></button>
     </div>
-    <div class="popup-form">
+    <div class="popup-form view">
         <table class="table-content">
             <tbody>
                 <tr>

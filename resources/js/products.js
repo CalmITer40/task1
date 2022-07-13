@@ -1,3 +1,5 @@
+// Прикрепляем события
+
 bindPopupEvents();
 
 function getFormData(name) {
@@ -8,8 +10,7 @@ function getFormData(name) {
         article: $(form).find('input[name="article"]').val(),
         status: $(form).find('input[name="status"]').val(),
         data: {},
-        _token: $(form).find('input[name="_token"]').val(),
-        _method: $(form).find('input[name="_method"]').val(),
+        _token: window._csrf
     };
 
     let names = $(form).find('input[name="names[]"]');

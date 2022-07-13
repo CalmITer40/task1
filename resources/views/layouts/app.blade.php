@@ -12,17 +12,17 @@
     <link rel="stylesheet" type="text/css" href="css/app.css"/>
 </head>
 <body>
-    @include('layouts.side')
+@include('layouts.side')
 
-    <div class="right-content">
-        @include('layouts.header')
+<div class="right-content">
+    @include('layouts.header')
 
-        <div class="container">
-            @yield('content')
-        </div>
+    <div class="container">
+        @yield('content')
     </div>
+</div>
 
 
-    <script src="js/app.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

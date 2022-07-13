@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Models\Product;
+use App\Rules\UpdateArticle;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CreateProductRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +26,16 @@ class CreateProductRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('id');
         return [
             'name' => ['required', 'min:10', 'max:255'],
-            'article' => ['required', 'alpha_num', 'max:255', 'unique:App\Models\Product'],
+            'article' => [
+                'required',
+                'alpha_num',
+                'max:255',
+                'unique:products,article,' . $id,
+                new UpdateArticle($id)
+            ],
             'status' => ['required', Rule::in(['available', 'unavailable'])]
         ];
     }

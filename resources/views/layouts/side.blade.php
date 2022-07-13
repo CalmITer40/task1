@@ -10,6 +10,8 @@
         </span>
     </div>
     <div class="menu-container">
-        <a href="/products">Продукты</a>
+        @if(Auth::check())
+            <a href="/products">Продукты</a>
+        @endif
     </div>
 </aside>

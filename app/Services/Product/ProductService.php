@@ -59,7 +59,7 @@ class ProductService
     {
         $product = $this->productRepository->getById($id);
         if ($product) {
-            if ($product->article !== $request['article'] && config('products.role') === '1') {
+            if (config('products.role') === '1') {
                 return false;
             }
         } else {

@@ -4,10 +4,10 @@
     <table class="content-table">
         <thead>
         <tr>
-            <td>Артикул</td>
-            <td>Название</td>
-            <td>Статус</td>
-            <td>Атрибуты</td>
+            <th>Артикул</th>
+            <th>Название</th>
+            <th>Статус</th>
+            <th>Атрибуты</th>
         </tr>
         </thead>
         <tbody>

@@ -1,7 +1,6 @@
 import './bootstrap';
 import './selector';
-
-import './popups';
+import './products';
 
 
 

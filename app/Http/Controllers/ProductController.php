@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Exceptions\HttpNotFoundException;
 use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Services\Product\ProductService;
 use Illuminate\Http\JsonResponse;
@@ -50,13 +51,13 @@ class ProductController extends Controller
     }
 
     /**
-     * @param CreateProductRequest $request
+     * @param UpdateProductRequest $request
      * @param int $id
      *
      * @return JsonResponse
      */
 
-    public function update(CreateProductRequest $request, int $id): JsonResponse
+    public function update(UpdateProductRequest $request, int $id): JsonResponse
     {
         $requestData = $this->getData($request);
         return $this->responseJsonOk($this->productService->update($id, $requestData));
