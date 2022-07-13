@@ -57,15 +57,6 @@ class ProductService
 
     public function update(int $id, array $request)
     {
-        $product = $this->productRepository->getById($id);
-        if ($product) {
-            if (config('products.role') === '1') {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
         return $this->productRepository->update($id, $request['body']);
     }
 
