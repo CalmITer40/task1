@@ -16,16 +16,16 @@ class ProductRepository implements Interfaces\ProductRepositoryInterface
 
     /**
      * @param int $id
-     * @return mixed
+     * @return object
      */
     public function getById(int $id)
     {
-        return Product::where('id', $id)->get();
+        return Product::find($id);
     }
 
     /**
      * @param array $data
-     * @return mixed
+     * @return object
      */
     public function create(array $data)
     {
@@ -35,7 +35,7 @@ class ProductRepository implements Interfaces\ProductRepositoryInterface
     /**
      * @param int $id
      * @param array $data
-     * @return bool
+     * @return int|bool
      */
     public function update(int $id, array $data)
     {

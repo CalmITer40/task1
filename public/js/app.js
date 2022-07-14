@@ -2216,7 +2216,18 @@ window._csrf = $('meta[name="csrf-token"]').attr('content');
 /***/ (() => {
 
 // Прикрепляем события
-bindPopupEvents();
+bindPopupEvents(); // Задаем заголовок csrf
+
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': window._csrf
+  }
+});
+/**
+ * Вспомогательная функция для создания тела запроса из формы
+ * @param name
+ * @returns {{data: {}, name: (*|jQuery), _token: *, id: (*|jQuery), article: (*|jQuery), status: (*|jQuery)}}
+ */
 
 function getFormData(name) {
   var form = $("#".concat(name));
@@ -2225,8 +2236,7 @@ function getFormData(name) {
     name: $(form).find('input[name="name"]').val(),
     article: $(form).find('input[name="article"]').val(),
     status: $(form).find('input[name="status"]').val(),
-    data: {},
-    _token: window._csrf
+    data: {}
   };
   var names = $(form).find('input[name="names[]"]');
   var values = $(form).find('input[name="values[]"]');
@@ -2239,10 +2249,12 @@ function getFormData(name) {
 }
 /*
 |
+| Функционал для работы попапов
 |
-|
-|
-|
+ */
+
+/**
+ * Привязка событий открытия попапов с кнопки
  */
 
 
@@ -2251,11 +2263,20 @@ $('*[data-action]').each(function (key, item) {
     openPopup($(item).data('action'), $(item).data());
   });
 });
+/**
+ * Привязка событий закрытия попапов с кнопки
+ */
+
 $('.popup .close').each(function (key, item) {
   $(item).click(function () {
     closePopup($(item).data('target'));
   });
 });
+/**
+ * Открытие указанного попапа
+ * @param name
+ * @param options
+ */
 
 function openPopup(name, options) {
   closeAllPopup();
@@ -2263,18 +2284,31 @@ function openPopup(name, options) {
   popup.trigger('popup:before-open', options);
   popup.addClass('active');
 }
+/**
+ * Закрытие указанного попапа
+ * @param name
+ */
+
 
 function closePopup(name) {
   var popup = $("*[data-name=\"".concat(name, "\"]"));
   popup.removeClass('active');
   popup.trigger('popup:after-close');
 }
+/**
+ * Закрытие всех открытых попапов
+ */
+
 
 function closeAllPopup() {
   var popups = $('.popup.active');
   popups.removeClass('active');
   popups.trigger('popup:after-close');
 }
+/**
+ * Привязка событий к открытию/закрытию попапов
+ */
+
 
 function bindPopupEvents() {
   var createPopup = $('.popup[data-name="create-product"]');
@@ -2310,6 +2344,7 @@ function bindPopupEvents() {
         var last = listAttributes.children().last();
         last.find('input[name="names[]"]').val(key);
         last.find('input[name="values[]"]').val(product.data[key]);
+        last.find('.remove').click(attributeAdd);
       }
     }
   });
@@ -2335,7 +2370,7 @@ function bindPopupEvents() {
         dataType: 'json'
       }).done(function (data, status, xhr) {
         if (xhr.status === 200) {
-          var product = data.data.shift();
+          var product = data.data;
 
           if (product) {
             window.cacheProduct = product;
@@ -2373,6 +2408,10 @@ function bindPopupEvents() {
     popup.find('*[data-name="data"]').html("");
   });
 }
+/**
+ * Привязка обработчика удаления строк атрибутов
+ */
+
 
 $('.attributes .add').each(function (key, item) {
   $(item).click(function (ev) {
@@ -2382,16 +2421,38 @@ $('.attributes .add').each(function (key, item) {
     if ($(list).find('.attribute').length < 5) {
       $(list).append(getTemplateAttribute());
       var last = $(list).find('.attribute').last();
-      last.find('.remove').click(function (ev) {
-        $(ev.target).parent().remove();
-      });
+      last.find('.remove').click(attributeAdd);
     }
   });
 });
+/**
+ * Колбэк для обработчика удаления строки атрибута
+ * @param ev
+ */
+
+function attributeAdd(ev) {
+  $(ev.target).parent().remove();
+}
+/**
+ * Шаблон строки атрибутов
+ *
+ * @returns {string}
+ */
+
 
 function getTemplateAttribute() {
   return "\n            <div class=\"attribute\">\n                <label>\n                    <p>\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</p>\n                    <input type=\"text\" name=\"names[]\">\n                </label>\n                <label>\n                    <p>\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435</p>\n                    <input type=\"text\" name=\"values[]\">\n                </label>\n                <button class=\"remove\"></button>\n            </div>\n        ";
 }
+/*
+|
+| Конец
+|
+ */
+
+/**
+ * Создание продукта
+ */
+
 
 $('.save[data-method="create-product"]').click(function (ev) {
   ev.preventDefault();
@@ -2401,7 +2462,8 @@ $('.save[data-method="create-product"]').click(function (ev) {
     url: '/products/create',
     type: 'POST',
     dataType: 'json',
-    data: data
+    contentType: "application/json",
+    data: JSON.stringify(data)
   }).done(function (data, status, xhr) {
     if (xhr.status === 201) {
       location.reload();
@@ -2422,6 +2484,10 @@ $('.save[data-method="create-product"]').click(function (ev) {
     }
   });
 });
+/**
+ * Изменение продукта
+ */
+
 $('.save[data-method="update-product"]').click(function (ev) {
   ev.preventDefault();
   var id = $(ev.target).data("id");
@@ -2433,7 +2499,8 @@ $('.save[data-method="update-product"]').click(function (ev) {
       url: "/products/update/".concat(id),
       type: 'PUT',
       dataType: 'json',
-      data: data
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(data)
     }).done(function (data, status, xhr) {
       if (xhr.status === 200) {
         location.reload();
@@ -2455,6 +2522,10 @@ $('.save[data-method="update-product"]').click(function (ev) {
     });
   }
 });
+/**
+ * Удаление продукта
+ */
+
 $('.remove[data-method="remove-product"]').click(function (ev) {
   var id = $(ev.target).data('id');
 
@@ -2462,10 +2533,7 @@ $('.remove[data-method="remove-product"]').click(function (ev) {
     $.ajax({
       url: "/products/delete/".concat(id),
       type: 'DELETE',
-      dataType: 'json',
-      data: {
-        '_token': window._csrf
-      }
+      dataType: 'json'
     }).done(function (data, status, xhr) {
       if (xhr.status === 200) {
         location.reload();

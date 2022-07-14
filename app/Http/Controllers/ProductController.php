@@ -34,7 +34,7 @@ class ProductController extends Controller
         $products = $this->productService->list();
 
         return view('products/index', [
-            'products' => ProductResource::collection($products)
+            'products' => $products
         ]);
     }
 

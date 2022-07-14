@@ -26,18 +26,18 @@ class ProductService
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
 
     public function list()
     {
-        return $this->productRepository->all();
+        return ProductResource::collection($this->productRepository->all());
     }
 
     /**
      * @param array $request
      *
-     * @return object
+     * @return ProductResource|false
      */
 
     public function create(array $request)
@@ -45,14 +45,16 @@ class ProductService
         $product = $this->productRepository->create($request['body']);
         if ($product) {
             SendMailAfterCreateProduct::dispatch();
+            return new ProductResource($product);
         }
-        return $product;
+
+        return false;
     }
 
     /**
      * @param int $id
      * @param array $request
-     * @return bool
+     * @return int
      */
 
     public function update(int $id, array $request)
@@ -63,12 +65,17 @@ class ProductService
     /**
      * @param int $id
      *
-     * @return object
+     * @return ProductResource|bool
      */
 
     public function view(int $id)
     {
-        return ProductResource::collection($this->productRepository->getById($id));
+        $product = $this->productRepository->getById($id);
+        if ($product) {
+            return new ProductResource($product);
+        } else {
+            return false;
+        }
     }
 
     /**
