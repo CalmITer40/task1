@@ -115,6 +115,12 @@ body .right-content .container {
   background: #F2F6FA;
   height: calc(100vh - 60px);
 }
+@media (max-width: 1024px) {
+  body .right-content .container {
+    display: flex;
+    flex-direction: column;
+  }
+}
 body .right-content .container .content-table {
   border-collapse: collapse;
 }
@@ -159,6 +165,19 @@ body .right-content .container .content-table td p {
 }
 body .right-content .container .content-table td.center {
   text-align: center;
+}
+body .right-content .container .add-product {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+@media (max-width: 1024px) {
+  body .right-content .container .add-product {
+    position: relative;
+    right: unset;
+    left: calc(100% - 9rem);
+    max-width: 9rem;
+  }
 }
 body .right-content .popup-container {
   position: absolute;

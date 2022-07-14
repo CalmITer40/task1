@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Exceptions\HttpNotFoundException;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Http\Resources\ProductResource;
 use App\Services\Product\ProductService;
 use Illuminate\Http\JsonResponse;
 

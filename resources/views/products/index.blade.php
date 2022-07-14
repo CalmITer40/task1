@@ -32,7 +32,7 @@
         </tbody>
     </table>
 
-    <button data-action="create-product" class="btn btn-blue absolute" data-entity="product">
+    <button data-action="create-product" class="btn btn-blue add-product" data-entity="product">
         Добавить
     </button>
 

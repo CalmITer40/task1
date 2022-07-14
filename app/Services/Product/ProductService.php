@@ -2,8 +2,8 @@
 
 namespace App\Services\Product;
 
-use App\Http\Exceptions\HttpNotFoundException;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
 use App\Jobs\SendMailAfterCreateProduct;
 use App\Repositories\ProductRepository;
 
@@ -26,18 +26,18 @@ class ProductService
     }
 
     /**
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return ProductCollection
      */
 
     public function list()
     {
-        return ProductResource::collection($this->productRepository->all());
+        return new ProductCollection($this->productRepository->all());
     }
 
     /**
      * @param array $request
      *
-     * @return ProductResource|false
+     * @return ProductResource|bool
      */
 
     public function create(array $request)

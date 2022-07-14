@@ -1,3 +1,9 @@
+@mixin sm-breakpoint {
+    @media (max-width: 1024px) {
+        @content;
+    }
+}
+
 body{
     display: flex;
     margin: 0;
@@ -106,6 +112,11 @@ body{
             background: #F2F6FA;
             height: calc(100vh - 60px);
 
+            @include sm-breakpoint(){
+                display: flex;
+                flex-direction: column;
+            }
+
             .content-table{
                 border-collapse: collapse;
 
@@ -159,6 +170,19 @@ body{
                     &.center{
                         text-align: center;
                     }
+                }
+            }
+
+            .add-product {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+
+                @include sm-breakpoint() {
+                    position: relative;
+                    right: unset;
+                    left: calc(100% - 9rem);
+                    max-width: 9rem;
                 }
             }
         }
