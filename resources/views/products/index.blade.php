@@ -12,7 +12,7 @@
         </thead>
         <tbody>
         @forelse($products as $product)
-            <tr class="row" data-action="view-product" data-id="{{$product->id}}">
+            <tr class="content-row" data-action="view-product" data-id="{{$product->id}}">
                 <td>{{$product->article}}</td>
                 <td>{{$product->name}}</td>
                 <td>{{$product->status_name}}</td>
@@ -32,7 +32,7 @@
         </tbody>
     </table>
 
-    <button data-action="create-product" class="btn btn-blue add-product" data-entity="product">
+    <button class="btn btn-blue add-product" data-action="create-product">
         Добавить
     </button>
 
